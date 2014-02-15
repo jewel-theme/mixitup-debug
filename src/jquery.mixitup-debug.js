@@ -113,7 +113,7 @@
 			},
 			
 			/**
-			 * Initialize
+			 * Initialise
 			 */
 			
 			_init: {
