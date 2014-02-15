@@ -55,11 +55,7 @@ module.exports = function(grunt) {
 							' * @author    KunkaLabs Limited.\n' +
 							' * @link      https://mixitup.kunkalabs.com\n' +
 							' *\n' +
-							' * @license   Commercial use requires a commercial license.\n' + 
-							' *            https://mixitup.kunkalabs.com/licenses/\n' +
-							' *\n' +
-							' *            Non-commercial use permitted under terms of CC-BY-NC license.\n' +
-							' *            http://creativecommons.org/licenses/by-nc/3.0/\n' +
+							' * @license   http://creativecommons.org/licenses/by-nc/3.0/\n' +
 							' */',
 					linebreak: false
 				},

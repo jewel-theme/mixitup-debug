@@ -28,8 +28,8 @@
 						
 						self.debug = {
 							enable: false,
-							mode: 'verbose' // or 'normal' or 'quiet'
-						}
+							mode: 'normal'
+						};
 					}
 				}
 			},
@@ -119,14 +119,28 @@
 			_init: {
 				post: {
 					debug: function(){
-						var self = this;
+						var self = this,
+							instancesCount = 0,
+							i;
 						
 						if(!self.debug.enable) return false;
 						
 						self._log({
-							message: '[_init] MixItUp instantiated on container with ID "'+self._domNode.id+'"',
+							message: '[_init] MixItUp instantiated on container with ID "'+self._domNode.id+'".',
 							type: 'log',
 							importance: 1
+						});
+						
+						for(i in self._instances){
+							if (self._instances.hasOwnProperty(i)){
+								instancesCount++;
+							}
+						}
+						
+						self._log({
+							message: '[_init] There are currently '+instancesCount+' instances of MixItUp in the document.',
+							type: 'log',
+							importance: 2
 						});
 					}
 				}
@@ -198,7 +212,7 @@
 			 */
 			
 			_processClick: {
-				post: {
+				pre: {
 					debug: function(){
 						var self = this,
 							type = arguments[0][1],
@@ -268,8 +282,32 @@
 						
 						if(!self.debug.enable) return false;
 						
+						if(!self._loading){
+						
+							self._log({
+								message: '[_cleanUp] The operation completed successfully.',
+								type: 'log',
+								importance: 2
+							});
+						
+						}
+					}
+				}
+			},
+			
+			/**
+			 *
+			 */
+			
+			_queue: {
+				pre: {
+					debug: function(){
+						var self = this;
+						
+						if(!self.debug.enable) return false;
+						
 						self._log({
-							message: '[_cleanUp] The operation completed successfully.',
+							message: '[multiMix] Loading operation from queue. There are '+(self._queue.length - 1)+' operations left in the queue.',
 							type: 'log',
 							importance: 2
 						});
@@ -282,6 +320,21 @@
 			 */
 			
 			multiMix: {
+				pre: {
+					debug: function(){
+						var self = this;
+						
+						if(!self.debug.enable) return false;
+						
+						if(!self._clicking){
+							self._log({
+								message: '[multiMix] Operation requested via the API.',
+								type: 'log',
+								importance: 2
+							});
+						}
+					}
+				},
 				post: {
 					debug: function(){
 						var self = this;
@@ -289,10 +342,10 @@
 						if(!self.debug.enable) return false;
 						
 						self._log({
-							message: '[multiMix] Operation requested and started.',
+							message: '[multiMix] Operation started.',
 							type: 'log',
 							importance: 2
-						})
+						});
 					}
 				}
 			},
@@ -305,10 +358,10 @@
 						if(!self.debug.enable) return false;
 						
 						self._log({
-							message: '[multiMix] An operation was requested but MixItUp was busy. The operation was added to the queue in position '+self._queue.length,
+							message: '[multiMix] An operation was requested but MixItUp was busy. The operation was added to the queue in position '+self._queue.length+'.',
 							type: 'warn',
 							importance: 1
-						})
+						});
 					}
 				}
 			},
@@ -324,7 +377,7 @@
 							message: '[multiMix] An operation was requested but MixItUp was busy and queuing is disabled. The request was ignored.',
 							type: 'warn',
 							importance: 1
-						})
+						});
 					}
 				}
 			}
@@ -337,7 +390,15 @@
 			var self = this,
 				id = self._domNode ? self._domNode.id : 'undefined';
 				
-			console[obj.type]('[MixItUp]['+id+']'+obj.message);
+			if(console === undf) return false;
+
+			if(
+				(self.debug.mode === 'verbose' && obj.importance <= 3) ||
+				(self.debug.mode === 'normal' && obj.importance <= 2) ||
+				(self.debug.mode === 'quiet' && obj.importance === 1)
+			){
+				console[obj.type]('[MixItUp]['+id+']'+obj.message);
+			}
 		}
 
 	});
