@@ -6,7 +6,8 @@
  * @author    KunkaLabs Limited.
  * @link      https://mixitup.kunkalabs.com
  *
- * @license   http://creativecommons.org/licenses/by-nc/3.0/
+ * @license   To be used under the same terms as MixItUp core.
+ *            https://mixitup.kunkalabs.com/licenses/
  */
 
 (function($, undf){

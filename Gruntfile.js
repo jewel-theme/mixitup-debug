@@ -55,7 +55,8 @@ module.exports = function(grunt) {
 							' * @author    KunkaLabs Limited.\n' +
 							' * @link      https://mixitup.kunkalabs.com\n' +
 							' *\n' +
-							' * @license   http://creativecommons.org/licenses/by-nc/3.0/\n' +
+							' * @license   To be used under the same terms as MixItUp core.\n' +
+						 	' *            https://mixitup.kunkalabs.com/licenses/\n' +
 							' */',
 					linebreak: false
 				},

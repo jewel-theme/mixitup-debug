@@ -5,9 +5,9 @@ A debugging extension for MixItUp.
 
 ## General Use
 
-This extension provides real time feedback about MixItUp's operations for use in debugging via the console.
+This extension provides real time console feedback about MixItUp's operations to help with debugging.
 
-To use, include the file in your project after the MixItUp core.
+To use, include the jquery.mixitup-debug.js file (or minified version) in your project after the MixItUp core. Be sure to remove when your project goes to production.
 
 For each instance of MixItUp that you wish to debug, enable debugging via the configuration object as follows when instantiating:
 
