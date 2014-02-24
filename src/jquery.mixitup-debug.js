@@ -43,12 +43,12 @@
 				pre: {
 					debug: function(){
 						var self = this,
-							domNode = arguments[0];
-							
-						if(!self.debug.enable) return false;
+							domNode = arguments[0][0],
+							settings = arguments[0][1];
+
+						if(!settings.debug || !settings.debug.enable) return false;
 							
 						if(!domNode.id){
-					
 							self._log({
 								message: '[_instantiate] No container ID found. MixItUp will generate and apply a random ID.',
 								type: 'warn',
@@ -273,6 +273,48 @@
 			},
 			
 			/**
+			 * Bind Target Done
+			 */
+			
+			_bindTargetDone: {
+				post: {
+					debug: function(){
+						var self = this;
+						
+						if(!self.debug.enable) return false;
+						
+						self._log({
+							message: '[_bindTargetDone] Target bound for transition-end.',
+							type: 'log',
+							importance: 3
+						});
+						
+					}
+				}
+			},
+			
+			/**
+			 *
+			 */
+			
+			_targetDone: {
+				post: {
+					debug: function(){
+						var self = this;
+						
+						if(!self.debug.enable) return false;
+						
+						self._log({
+							message: '[_targetDone] Transition-end detected. Target done.',
+							type: 'log',
+							importance: 3
+						});
+						
+					}
+				}
+			},
+			
+			/**
 			 * CleanUp
 			 */
 			
@@ -291,6 +333,14 @@
 								importance: 2
 							});
 						
+						} else {
+							
+							self._log({
+								message: '[_cleanUp] Loading animation completed successfully.',
+								type: 'log',
+								importance: 2
+							});
+							
 						}
 					}
 				}
